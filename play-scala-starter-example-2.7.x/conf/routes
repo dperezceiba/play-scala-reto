@@ -4,6 +4,11 @@
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
+# An example controller download file
+GET     /download                           controllers.HomeController.download
+# Post error test
+POST    /errortest     						controllers.HomeController.error
+
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code

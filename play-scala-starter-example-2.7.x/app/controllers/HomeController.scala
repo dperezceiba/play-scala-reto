@@ -2,14 +2,21 @@ package controllers
 
 import javax.inject._
 
+import play.api._
 import play.api.mvc._
+import play.api.libs.json._
+import play.api.libs.functional.syntax._
+import akka.stream.scaladsl._
+import akka.util.ByteString
+import models.ErrorIn
+import play.api.http.HttpEntity
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
  * application's home page.
  */
 @Singleton
-class HomeController @Inject()(cc: ControllerComponents) (implicit assetsFinder: AssetsFinder)
+class HomeController @Inject() (cc: ControllerComponents)(implicit assetsFinder: AssetsFinder)
   extends AbstractController(cc) {
 
   /**
@@ -20,6 +27,24 @@ class HomeController @Inject()(cc: ControllerComponents) (implicit assetsFinder:
    */
   def index = Action {
     Ok(views.html.index("Your new application is ready."))
+  }
+
+  def download = Action {
+
+    val file = new java.io.File("D:\\test.pdf")
+
+    val path: java.nio.file.Path = file.toPath
+    val source: Source[ByteString, _] = FileIO.fromPath(path)
+
+    Result(
+      header = ResponseHeader(200, Map.empty),
+      body = HttpEntity.Streamed(source, None, Some("application/pdf")))
+  }
+  
+  def error = Action { implicit request =>
+    println(request.body)
+    val dataFromJson: JsResult[ErrorIn] = Json.fromJson[ErrorIn](request.body.asJson.get)
+    Ok
   }
 
 }
