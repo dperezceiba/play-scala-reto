@@ -8,15 +8,16 @@ import play.api.libs.json._
 import play.api.libs.functional.syntax._
 import akka.stream.scaladsl._
 import akka.util.ByteString
-import models.ErrorIn
+import domain.ErrorIn
 import play.api.http.HttpEntity
+import scala.concurrent.ExecutionContext
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
  * application's home page.
  */
 @Singleton
-class HomeController @Inject() (cc: ControllerComponents)(implicit assetsFinder: AssetsFinder)
+class HomeController @Inject() (cc: ControllerComponents)(implicit assetsFinder: AssetsFinder, ec: ExecutionContext)
   extends AbstractController(cc) {
 
   /**
@@ -43,7 +44,7 @@ class HomeController @Inject() (cc: ControllerComponents)(implicit assetsFinder:
   
   def error = Action { implicit request =>
     println(request.body)
-    val dataFromJson: JsResult[ErrorIn] = Json.fromJson[ErrorIn](request.body.asJson.get)
+    throw new Exception("Esto es un error")
     Ok
   }
 

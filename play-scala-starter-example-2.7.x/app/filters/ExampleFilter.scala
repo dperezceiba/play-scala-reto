@@ -18,10 +18,6 @@ class ExampleFilter @Inject()(implicit ec: ExecutionContext) extends EssentialFi
     
     val headers: Seq[(String, String)] = request.headers.headers
     
-    for (h <- headers) {
-      println(s"header => : $h")
-    }  
-    
     next(request).map { result =>
       //result.as("application/json")
       result.withHeaders("X-ExampleFilter" -> "foo")

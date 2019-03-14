@@ -4,11 +4,6 @@
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
-# An example controller download file
-GET     /download                           controllers.HomeController.download
-# Post error test
-POST    /errortest     						controllers.HomeController.error
-
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
@@ -17,17 +12,18 @@ GET     /message                    controllers.AsyncController.message
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(file)
 
-# Post calculator add
-POST    /calculator/add     				controllers.CalculatorController.add
 
-# Post calculator subtract
-POST    /calculator/subtract     			controllers.CalculatorController.subtract
+# An example controller download file
+GET     /download                           controllers.HomeController.download
+# Post error test
+POST    /errortest     						controllers.HomeController.error
 
-# Post calculator multiply
-POST    /calculator/multiply     			controllers.CalculatorController.multiply
 
-# Post calculator divide
-POST    /calculator/divide     				controllers.CalculatorController.divide
+# Post calculator calculate
+POST    /calculate     					controllers.CalculatorController.calculate
+
+# Consumir servicio externo
+GET     /consumews							controllers.ConsumeClientController.findAllComments
 
 # GET PERSON BY ID
 GET    /persons/:id      				 	controllers.PersonController.findById(id: Long)
@@ -37,3 +33,28 @@ GET     /persons							controllers.PersonController.findAllByName(name: Option[S
 
 # Post calculator divide
 POST    /persons     						controllers.PersonController.save
+
+# Post message send
+POST    /messages  						    controllers.MessageController.send
+
+# Get message get count
+GET    /messages/:user     					controllers.MessageController.countMessage(user: String)
+
+# Save a person
+POST    /crudpersons     						controllers.PersonCrudController.save
+
+# Find person by Id
+GET 	/crudpersons/:id						controllers.PersonCrudController.findById(id: Long)
+
+# Delete person by Id
+DELETE	/crudpersons/:id						controllers.PersonCrudController.delete(id: Long)
+
+# Update person by id
+PUT 	/crudpersons/:id						controllers.PersonCrudController.update(id: Long)
+
+# Find all persons
+GET 	/crudpersons							controllers.PersonCrudController.findAll
+
+# starts Tasks
+GET 	/tasks									controllers.TaskController.tasks
+

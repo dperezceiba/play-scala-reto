@@ -4,7 +4,7 @@ import play.api.http.Status
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.api.libs.json._
-import models.InData
+import domain.InData
 
 /**
  * Functional tests start a Play application internally, available
@@ -14,13 +14,34 @@ class CalculatorFunctionalSpec extends PlaySpec with GuiceOneAppPerSuite {
 
   "CalculatorController" should {
 
-    "return operations calculator" in {
-      val testData = InData(30, 10)
+    "return operations add calculator" in {
+      val testData = InData(30, 10, "add")
   
-      contentAsString(route(app, FakeRequest(POST, "/calculator/add").withJsonBody(Json.toJson(testData))).get) must include("40")
-      contentAsString(route(app, FakeRequest(POST, "/calculator/subtract").withJsonBody(Json.toJson(testData))).get) must include("20")
-      contentAsString(route(app, FakeRequest(POST, "/calculator/multiply").withJsonBody(Json.toJson(testData))).get) must include("300")
-      contentAsString(route(app, FakeRequest(POST, "/calculator/divide").withJsonBody(Json.toJson(testData))).get) must include("3")
+      contentAsString(route(app, FakeRequest(POST, "/calculate").withJsonBody(Json.toJson(testData))).get) must include("40")
+    }
+    
+    "return operations subtract calculator" in {
+      val testData = InData(30, 10, "subtract")
+  
+      contentAsString(route(app, FakeRequest(POST, "/calculate").withJsonBody(Json.toJson(testData))).get) must include("20")
+    }
+    
+    "return operations multiply calculator" in {
+      val testData = InData(30, 10, "multiply")
+  
+      contentAsString(route(app, FakeRequest(POST, "/calculate").withJsonBody(Json.toJson(testData))).get) must include("300")
+    }
+    
+    "return operations divide calculator" in {
+      val testData = InData(30, 10, "divide")
+  
+      contentAsString(route(app, FakeRequest(POST, "/calculate").withJsonBody(Json.toJson(testData))).get) must include("3")
+    }
+    
+    "return operations other calculator" in {
+      val testData = InData(30, 10, "other")
+  
+      contentAsString(route(app, FakeRequest(POST, "/calculate").withJsonBody(Json.toJson(testData))).get) must include("0")
     }
 
   }

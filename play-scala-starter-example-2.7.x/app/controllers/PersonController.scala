@@ -5,7 +5,7 @@ import play.api._
 import play.api.mvc._
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
-import models._
+import domain._
 import scala.concurrent.{ ExecutionContext, Future }
 import scala.util._
 import services._

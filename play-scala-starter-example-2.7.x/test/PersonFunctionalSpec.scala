@@ -3,7 +3,7 @@ import org.scalatestplus.play._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.api.libs.json._
-import models.Person
+import domain.Person
 import scala.concurrent.Future
 import play.api.mvc.Result
 

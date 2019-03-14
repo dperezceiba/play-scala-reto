@@ -2,12 +2,16 @@ import com.google.inject.AbstractModule
 import java.time.Clock
 
 import services.{ApplicationTimer, AtomicCounter, Counter}
-import services.Calculator
-import services.SimpleCalculator
-import models.Resolve
-import models.ResolveOperation
-import services.Persons
-import services.PersonsImpl
+import services._
+import services.impl.ResolveOperation
+import services.impl.PersonsImpl
+import services.impl.MessageServiceImpl
+import services.PersonService
+import services.impl.PersonServiceImpl
+import repositories.PersonRepository
+import repositories.impl.PersonRepositoryImpl
+import services.MessageBrokerService
+import services.impl.MessageBrokerServiceImpl
 
 /**
  * This class is a Guice module that tells Guice how to bind several
@@ -38,6 +42,16 @@ class Module extends AbstractModule {
     
      // Set Person as the implementation for Persons
     bind(classOf[Persons]).to(classOf[PersonsImpl])
+    
+     // Set Message as the implementation for Messages
+    bind(classOf[MessageService]).to(classOf[MessageServiceImpl])
+    
+    bind(classOf[PersonService]).to(classOf[PersonServiceImpl])
+    
+    bind(classOf[PersonRepository]).to(classOf[PersonRepositoryImpl])
+    
+    bind(classOf[MessageBrokerService]).to(classOf[MessageBrokerServiceImpl])
+    
   }
 
 }

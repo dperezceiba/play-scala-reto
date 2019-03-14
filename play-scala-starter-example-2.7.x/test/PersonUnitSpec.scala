@@ -5,23 +5,19 @@ import models._
 import play.api.test.Helpers._
 import play.api.test._
 import play.api.libs.json._
-import models.OutData
-import models.Resolve
-import models.ResolveOperation
-import models.Operation
 import controllers.PersonController
 import services.Persons
-import services.PersonsImpl
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
 import scala.None
 import play.api.mvc.AnyContent
 import scala.concurrent._
-import models.Person
+import domain.Person
 import play.api.libs.json.JsValue
 import play.api.libs.json.Json
 import scala.collection.Seq
 import scala.collection.immutable.List
+import services.impl.PersonsImpl
 
 class PersonUnitSpec extends PlaySpec with Results {
 
